@@ -1,10 +1,9 @@
-name: tags
+name: release
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [created]
 jobs:
-  tags:
+  release:
     runs-on: ubuntu-latest
     steps:   
       - name: build go binary
