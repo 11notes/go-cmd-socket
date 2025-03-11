@@ -34,7 +34,7 @@ jobs:
       - name: go / build
         uses: wangyoucao577/go-release-action@8dbc9990292b456ae78e728c7cf7b857b821faac
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.REPOSITORY_TOKEN }}
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
           goversion: "1.23"
