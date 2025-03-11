@@ -6,11 +6,10 @@ import (
 	"net"
 	"net/http"
 	"os/exec"
+  "flag"
 	"encoding/json"
 	"github.com/gorilla/mux"
 )
-
-const Socket = "/run/cmd.sock"
 
 type Payload struct {
 	Bin string `json:"bin,omitempty"`
@@ -18,6 +17,9 @@ type Payload struct {
 }
 
 func main() {
+  sockp := flag.String("s", "/run/cmd.sock", "path to socket file")
+  flag.Parse()
+
 	r := mux.NewRouter()
 	r.HandleFunc("/", post).Methods("POST")
 	r.HandleFunc("/", get).Methods("GET")
@@ -26,8 +28,8 @@ func main() {
 	 Handler: r,
 	}
 
-	err := os.Remove(Socket) 
-	unix, err := net.Listen("unix", Socket)
+	err := os.Remove(*sockp) 
+	unix, err := net.Listen("unix", *sockp)
 	if err != nil {
 		panic(err)
 	}
